@@ -14,9 +14,8 @@ public class Departamento {
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    @OneToOne
-    @JoinColumn(name = "chefe_id")
-    private Professor chefe;
+    @Column(name = "chefe_id")
+    private Long chefeId;
 
     /* Construtor para a JPA */
     protected Departamento() {}
@@ -47,11 +46,11 @@ public class Departamento {
         this.descricao = descricao;
     }
 
-    public Professor getChefe() {
-        return chefe;
+    public Long getChefeId() {
+        return chefeId;
     }
 
-    public void setChefe(Professor chefe) {
-        this.chefe = chefe;
+    public void setChefeId(Long chefeId) {
+        this.chefeId = chefeId;
     }
 } 

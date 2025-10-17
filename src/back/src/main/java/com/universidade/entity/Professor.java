@@ -2,6 +2,11 @@ package com.universidade.entity;
 
 import jakarta.persistence.*;
 
+/*
+ * Não adicionei id do(s) departamento(s) que o professor pertence. 
+ * Talvez deixar como se ele pertencesse a somente um departamento nao faça diferença. fodase.
+ */
+
 @Entity
 public class Professor {
     @Id
@@ -10,6 +15,9 @@ public class Professor {
 
     @Column(unique = true, nullable = false, length = 20)
     private String matricula;
+
+    @Column(name = "id_departamento")
+    private Long idDepartamento;
 
     /* Construtor para a JPA */
     protected Professor() {}
@@ -30,5 +38,13 @@ public class Professor {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public Long getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(Long idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 }
