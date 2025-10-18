@@ -11,14 +11,13 @@ CREATE TABLE Professor (
     id INT PRIMARY KEY AUTO_INCREMENT,
     matricula VARCHAR(20) UNIQUE NOT NULL,
     departamento VARCHAR(100),
-    codigo_departamento INT,
-    FOREIGN KEY (codigo_departamento) REFERENCES Departamento(codigo)
+    id_departamento INT,
+    FOREIGN KEY (id_departamento) REFERENCES Departamento(id)
 );
 
 CREATE TABLE Departamento ( /* nao sei ao certo se um professor pertence a somente um departamento */
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    codigo VARCHAR(10) UNIQUE,
     descricao TEXT,
     chefe_id INT,
     FOREIGN KEY (chefe_id) REFERENCES Professor(id) /* acredito que todo chefe seja professor, por isso coloquei aqui */ 
@@ -26,13 +25,13 @@ CREATE TABLE Departamento ( /* nao sei ao certo se um professor pertence a somen
 
 /* se o numero de cada sala no departamento for unico, entao remover isso aqui. 
  		porem, se for unico por Edificio, dai sim manter.  */
-CREATE TABLE Edificio (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    codigo VARCHAR(10) UNIQUE,
-    endereco TEXT,
-    numero_andares INT DEFAULT 1
-);
+-- CREATE TABLE Edificio (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     nome VARCHAR(100) NOT NULL,
+--     codigo VARCHAR(10) UNIQUE,
+--     endereco TEXT,
+--     numero_andares INT DEFAULT 1
+-- );
 
 /* talvez colocar numero do departamento */
 CREATE TABLE Sala (
@@ -54,7 +53,7 @@ CREATE TABLE Sala (
 /* acho que esta ok */
 CREATE TABLE Disciplina (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    codigo VARCHAR(20) UNIQUE NOT NULL,
+    codigo VARCHAR(20) UNIQUE NOT NULL, /* ver se cabe adicionar depois */
     nome VARCHAR(150) NOT NULL,
     carga_horaria INT,
     departamento_id INT,

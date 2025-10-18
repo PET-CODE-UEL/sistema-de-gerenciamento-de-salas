@@ -1,0 +1,17 @@
+com/universidade/entity/Funcionario.class
+com/universidade/repository/DepartamentoRepository.class
+com/universidade/entity/Departamento.class
+com/universidade/repository/FuncionarioRepository.class
+com/universidade/entity/Sala.class
+com/universidade/entity/Professor.class
+com/universidade/entity/Reserva$StatusReserva.class
+com/universidade/service/FuncionarioService.class
+com/universidade/entity/Sala$StatusSala.class
+com/universidade/repository/ReservaRepository.class
+com/universidade/repository/ProfessorRepository.class
+com/universidade/entity/Reserva$TipoReserva.class
+com/universidade/entity/Disciplina.class
+com/universidade/entity/Sala$TipoSala.class
+com/universidade/repository/DisciplinaRepository.class
+com/universidade/repository/SalaRepository.class
+com/universidade/entity/Reserva.class

@@ -1,4 +1,4 @@
-package main.java.com.universidade.entity;
+package com.universidade.entity;
 
 import jakarta.persistence.*;
 
@@ -28,7 +28,6 @@ public class Disciplina {
         this.nome = nome;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
