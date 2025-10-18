@@ -1,0 +1,15 @@
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/UniroomApplication.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/controller/ProfessorController.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/entity/Departamento.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/entity/Disciplina.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/entity/Funcionario.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/entity/Professor.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/entity/Reserva.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/entity/Sala.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/repository/DepartamentoRepository.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/repository/DisciplinaRepository.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/repository/FuncionarioRepository.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/repository/ProfessorRepository.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/repository/ReservaRepository.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/repository/SalaRepository.java
+/home/fiori/Faculdade/PET/ProjetoCCE/sistema-de-gerenciamento-de-salas/src/back/src/main/java/com/universidade/service/FuncionarioService.java

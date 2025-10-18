@@ -1,4 +1,4 @@
-package main.java.com.universidade.entity;
+package com.universidade.entity;
 
 import jakarta.persistence.*;
 
@@ -48,14 +48,11 @@ public class Sala {
     /* Construtor para a JPA */
     protected Sala() {}
 
-    /* talvez seja melhor passar por parametro o 
-        tem projetor, pc, ar (menos trabalho).
-    */
+    /* talvez seja melhor passar por parametro o tem projetor, pc, ar (menos trabalho). */
     public Sala(String numero) {
         this.numero = numero;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

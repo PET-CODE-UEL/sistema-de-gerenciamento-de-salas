@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 /*
  * Não adicionei id do(s) departamento(s) que o professor pertence. 
- * Talvez deixar como se ele pertencesse a somente um departamento nao faça diferença. fodase.
+ * Talvez deixar como se ele pertencesse a somente um departamento nao faça diferença.
  */
 
 @Entity
@@ -20,14 +20,14 @@ public class Professor {
     private Long idDepartamento;
 
     /* Construtor para a JPA */
-    protected Professor() {}
+    protected Professor() {
+    }
 
     /* Construtor com parâmetros */
     public Professor(String matricula) {
         this.matricula = matricula;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

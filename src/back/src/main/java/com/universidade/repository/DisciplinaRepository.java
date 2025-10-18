@@ -1,4 +1,4 @@
-package main.java.com.universidade.repository;
+package com.universidade.repository;
 
 import com.universidade.entity.Disciplina;
 import org.springframework.data.jpa.repository.JpaRepository;

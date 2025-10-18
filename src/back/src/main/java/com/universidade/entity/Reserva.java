@@ -1,8 +1,9 @@
-package main.java.com.universidade.entity;
+package com.universidade.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Reserva {
@@ -16,7 +17,7 @@ public class Reserva {
     @Column(name = "professor_id", nullable = false)
     private Long professorId;
 
-    @Column(name = "disciplina_id")
+    @Column(name = "disciplina_id", nullable = true)
     private Long disciplinaId;
 
     @Column(name = "hora_inicio", nullable = false)
@@ -62,7 +63,6 @@ public class Reserva {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
