@@ -1,12 +1,12 @@
-package com.universidade.controller;
+package com.petcode.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.universidade.entity.Professor;
-import com.universidade.repository.ProfessorRepository;
+import com.petcode.entity.Professor;
+import com.petcode.repository.ProfessorRepository;
 
 @RestController
 public class ProfessorController {
@@ -18,15 +18,15 @@ public class ProfessorController {
     }
 
     @GetMapping("/insert-prof")
-    public void insertProfessor(@RequestParam("matricula") String matricula) {
-        if(matricula != null) {    
-            Professor professor = new Professor(matricula);
+    public void insertProfessor(@RequestParam("registrationNumber") String registrationNumber) {
+        if(registrationNumber != null) {    
+            Professor professor = new Professor(registrationNumber);
             repository.save(professor);
         }
     }
 
     @GetMapping("/count-prof")
-    public Long countProfessores() {
+    public Long countProfessors() {
         return repository.count();
     }
 }

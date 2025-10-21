@@ -1,9 +1,9 @@
-package com.universidade;
+package com.petcode;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.universidade")
+@SpringBootApplication(scanBasePackages = "com.petcode")
 public class UniroomApplication {
 
 	public static void main(String[] args) {
