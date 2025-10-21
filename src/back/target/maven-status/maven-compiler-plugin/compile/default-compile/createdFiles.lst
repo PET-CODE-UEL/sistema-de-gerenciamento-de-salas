@@ -10,8 +10,10 @@ com/universidade/entity/Sala$StatusSala.class
 com/universidade/repository/ReservaRepository.class
 com/universidade/repository/ProfessorRepository.class
 com/universidade/entity/Reserva$TipoReserva.class
-com/universidade/entity/Disciplina.class
 com/universidade/entity/Sala$TipoSala.class
+com/universidade/entity/Disciplina.class
+com/universidade/controller/ProfessorController.class
+com/universidade/UniroomApplication.class
 com/universidade/repository/DisciplinaRepository.class
 com/universidade/repository/SalaRepository.class
 com/universidade/entity/Reserva.class
