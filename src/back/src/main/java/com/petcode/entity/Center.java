@@ -10,10 +10,10 @@ import jakarta.persistence.Table;
 public class Center {
 
   @Id
-  @Column(name="code")
+  @Column(name = "code")
   private String code;
 
-  @Column(name="name", nullable = false, length = 100)
+  @Column(name = "name", nullable = false, length = 100)
   private String name;
 
   protected Center() {}

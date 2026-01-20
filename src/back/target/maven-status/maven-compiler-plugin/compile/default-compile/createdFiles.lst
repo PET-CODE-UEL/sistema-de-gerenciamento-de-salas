@@ -1,4 +1,5 @@
 com/petcode/entity/Professor.class
+com/petcode/controller/DepartmentController.class
 com/petcode/controller/ResourceNotFoundException.class
 com/petcode/entity/Discipline.class
 com/petcode/UniroomApplication.class
@@ -19,6 +20,8 @@ com/petcode/entity/Room$RoomStatus.class
 com/petcode/repository/ReservationRepository.class
 com/petcode/controller/ProfessorController.class
 com/petcode/entity/Department.class
+com/petcode/service/DepartmentService.class
 com/petcode/repository/DisciplineRepository.class
 com/petcode/entity/Room.class
 com/petcode/repository/DepartmentRepository.class
+com/petcode/dto/DepartmentCreateDTO.class

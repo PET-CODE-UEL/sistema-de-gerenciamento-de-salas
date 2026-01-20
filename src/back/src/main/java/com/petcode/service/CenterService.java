@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -17,6 +18,7 @@ public class CenterService {
 
   private CenterRepository repository;
 
+  @Autowired
   public CenterService(CenterRepository repository) {
     this.repository = repository;
   }
@@ -28,7 +30,7 @@ public class CenterService {
   public Center findByCode(String code) throws Exception {
     Optional<Center> center = repository.findById(code);
     if (center.isEmpty()) {
-      throw new Exception("Center code not found.");
+      throw new Exception("Center code not found");
     } else {
       return center.get();
     }
@@ -47,21 +49,21 @@ public class CenterService {
     if (repository.existsById(center.getCode())) {
       return repository.save(center);
     } else {
-      throw new ResourceNotFoundException("Center code not found.");
+      throw new ResourceNotFoundException("Center code not found");
     }
   }
 
   public Center updateCenter(String code, Map<String, Object> fields) throws Exception {
     Optional<Center> opt = repository.findById(code);
     if (opt.isEmpty()) {
-      throw new ResourceNotFoundException("Center code not found.");
+      throw new ResourceNotFoundException("Center code not found");
     }
     Center center = opt.get();
 
     fields.forEach((key, val) -> {
       Field field = ReflectionUtils.findField(Center.class, key);
       if (field == null) {
-        throw new IllegalArgumentException(String.format("Tried to update non existent field %s.", key));
+        throw new IllegalArgumentException(String.format("Tried to update non existent field %s", key));
       }
       field.setAccessible(true);
       ReflectionUtils.setField(field, center, val);
@@ -74,7 +76,7 @@ public class CenterService {
     if (repository.existsById(code)) {
       repository.deleteById(code);
     } else {
-      throw new ResourceNotFoundException("Center code not found.");
+      throw new ResourceNotFoundException("Center code not found");
     }
   }
 }

@@ -1,7 +1,9 @@
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/UniroomApplication.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/controller/CenterController.java
+/home/roger/code/uniroom/src/back/src/main/java/com/petcode/controller/DepartmentController.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/controller/ProfessorController.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/controller/ResourceNotFoundException.java
+/home/roger/code/uniroom/src/back/src/main/java/com/petcode/dto/DepartmentCreateDTO.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/entity/Center.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/entity/Department.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/entity/Discipline.java
@@ -17,4 +19,5 @@
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/repository/ReservationRepository.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/repository/RoomRepository.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/service/CenterService.java
+/home/roger/code/uniroom/src/back/src/main/java/com/petcode/service/DepartmentService.java
 /home/roger/code/uniroom/src/back/src/main/java/com/petcode/service/EmployeeService.java

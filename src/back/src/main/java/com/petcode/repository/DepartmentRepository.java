@@ -1,10 +1,18 @@
 package com.petcode.repository;
 
-import com.petcode.entity.Department;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
-    
+import org.springframework.data.repository.ListCrudRepository;
+
+import com.petcode.entity.Department;
+
+public interface DepartmentRepository extends ListCrudRepository<Department, String> {
+
+  Optional<Department> findByCode(String code);
+
+  List<Department> findByName(String name);
+
+  Object deleteByCode(String code);
+
 }
