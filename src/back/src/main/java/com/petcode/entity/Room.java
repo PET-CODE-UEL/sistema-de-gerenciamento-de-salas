@@ -45,7 +45,6 @@ public class Room {
         ACTIVE, MAINTENANCE, INACTIVE
     }
 
-    /* Constructor for JPA */
     protected Room() {}
 
     public Room(String number) {
