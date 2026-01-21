@@ -14,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.petcode.center.Center;
 import com.petcode.center.CenterRepository;
-import com.petcode.controller.ResourceNotFoundException;
 
 @Service
 public class DepartmentService {
@@ -32,7 +31,7 @@ public class DepartmentService {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "Department with this code already exists");
     }
     Center center = centerRepository.findByCode(departmentDto.getCenterCode())
-        .orElseThrow(() -> new IllegalArgumentException(
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT,
             String.format("There is no Center with code %s", departmentDto.getCenterCode())));
 
     Department d = new Department(departmentDto.getCode(), departmentDto.getName(), center);
@@ -43,13 +42,13 @@ public class DepartmentService {
   public DepartmentResponseDto findByCode(String code) throws Exception {
     Optional<Department> department = repository.findByCode(code);
     if (department.isEmpty()) {
-      throw new Exception("Department code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Department code not found");
     } else {
       return new DepartmentResponseDto(department.get());
     }
   }
 
-  public List<DepartmentResponseDto> findAll() throws ResourceNotFoundException {
+  public List<DepartmentResponseDto> findAll() throws Exception {
     List<Department> departments = repository.findAll();
 
     List<DepartmentResponseDto> responseDtos = new ArrayList<DepartmentResponseDto>();
@@ -59,7 +58,7 @@ public class DepartmentService {
     }
 
     if (departments.isEmpty()) {
-      throw new ResourceNotFoundException("There are no registered departments");
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no registered departments");
     } else {
       return responseDtos;
     }
@@ -69,21 +68,21 @@ public class DepartmentService {
     if (repository.existsById(department.getCode())) {
       return new DepartmentResponseDto(repository.save(department));
     } else {
-      throw new ResourceNotFoundException("Department code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Department code not found");
     }
   }
 
   public DepartmentResponseDto updateDepartment(String code, Map<String, Object> fields) throws Exception {
     Optional<Department> opt = repository.findByCode(code);
     if (opt.isEmpty()) {
-      throw new ResourceNotFoundException("Department code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Department code not found");
     }
     Department department = opt.get();
 
     fields.forEach((key, val) -> {
       Field field = ReflectionUtils.findField(Department.class, key);
       if (field == null) {
-        throw new IllegalArgumentException(String.format("Tried to update non existent field %s", key));
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Tried to update non existent field %s", key));
       }
       field.setAccessible(true);
       ReflectionUtils.setField(field, department, val);
@@ -96,7 +95,7 @@ public class DepartmentService {
     if (repository.existsById(code)) {
       repository.deleteById(code);
     } else {
-      throw new ResourceNotFoundException("Department code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Department code not found");
     }
   }
 }

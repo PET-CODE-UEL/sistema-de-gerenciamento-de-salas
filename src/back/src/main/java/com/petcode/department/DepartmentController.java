@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.petcode.controller.ResourceNotFoundException;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("${apiPrefix}/department")
@@ -38,8 +37,8 @@ public class DepartmentController {
   public ResponseEntity<?> getDepartment(@PathVariable String code) {
     try {
       return ResponseEntity.ok(service.findByCode(code));
-    } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
@@ -49,8 +48,8 @@ public class DepartmentController {
   public ResponseEntity<?> getAllDepartments() {
     try {
       return ResponseEntity.ok(service.findAll());
-    } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
@@ -60,8 +59,8 @@ public class DepartmentController {
   public ResponseEntity<?> replaceDepartment(@PathVariable String code, @RequestBody Department department) {
     try {
       return ResponseEntity.status(HttpStatus.OK).body(service.replaceDepartment(code, department));
-    } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
@@ -71,8 +70,8 @@ public class DepartmentController {
   public ResponseEntity<?> updateDepartment(@PathVariable String code, @RequestBody Map<String, Object> fields) {
     try {
       return ResponseEntity.status(HttpStatus.OK).body(service.updateDepartment(code, fields));
-    } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
@@ -83,12 +82,11 @@ public class DepartmentController {
     try {
       service.deleteByCode(code);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
   }
-
 
 }

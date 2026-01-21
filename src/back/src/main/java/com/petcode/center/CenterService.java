@@ -6,10 +6,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Http;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.petcode.controller.ResourceNotFoundException;
 import com.petcode.department.Department;
 import com.petcode.department.DepartmentRepository;
 
@@ -38,10 +40,10 @@ public class CenterService {
     }
   }
 
-  public List<Center> findAll() throws ResourceNotFoundException {
+  public List<Center> findAll() throws Exception {
     List<Center> centers = repository.findAll();
     if (centers.isEmpty()) {
-      throw new ResourceNotFoundException("There are no registered centers");
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no registered centers");
     } else {
       return centers;
     }
@@ -51,21 +53,22 @@ public class CenterService {
     if (repository.existsById(center.getCode())) {
       return repository.save(center);
     } else {
-      throw new ResourceNotFoundException("Center code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Center code not found");
     }
   }
 
   public Center updateCenter(String code, Map<String, Object> fields) throws Exception {
     Optional<Center> opt = repository.findById(code);
     if (opt.isEmpty()) {
-      throw new ResourceNotFoundException("Center code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Center code not found");
     }
     Center center = opt.get();
 
     fields.forEach((key, val) -> {
       Field field = ReflectionUtils.findField(Center.class, key);
       if (field == null) {
-        throw new IllegalArgumentException(String.format("Tried to update non existent field %s", key));
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            String.format("Tried to update non existent field %s", key));
       }
       field.setAccessible(true);
       ReflectionUtils.setField(field, center, val);
@@ -78,18 +81,19 @@ public class CenterService {
     if (repository.existsById(code)) {
       repository.deleteById(code);
     } else {
-      throw new ResourceNotFoundException("Center code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Center code not found");
     }
   }
 
   public List<Department> listDepartments(String code) throws Exception {
     repository.findByCode(code)
-        .orElseThrow(() -> new ResourceNotFoundException(String.format("There is no center with code: %s", code)));
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+            String.format("There is no center with code: %s", code)));
 
     List<Department> departments = departmentRepository.findByCenterCode(code);
 
     if (departments.isEmpty()) {
-      throw new ResourceNotFoundException("There are no departments registered in this center");
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no departments registered in this center");
     } else {
       return departments;
     }

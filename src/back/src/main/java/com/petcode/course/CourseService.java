@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.petcode.controller.ResourceNotFoundException;
 import com.petcode.department.Department;
 import com.petcode.department.DepartmentRepository;
 
@@ -33,7 +32,7 @@ public class CourseService {
     }
 
     Department department = departmentRepository.findByCode(courseCreateDto.getDepartmentCode())
-        .orElseThrow(() -> new IllegalArgumentException(
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT,
             String.format("There is no Department with code %s", courseCreateDto.getDepartmentCode())));
 
     Course c = new Course(courseCreateDto.getCode(), courseCreateDto.getName(), department);
@@ -50,7 +49,7 @@ public class CourseService {
     }
   }
 
-  public List<CourseResponseDto> findAll() throws ResourceNotFoundException {
+  public List<CourseResponseDto> findAll() throws Exception {
     List<Course> courses = repository.findAll();
 
     List<CourseResponseDto> responseDtos = new ArrayList<CourseResponseDto>();
@@ -60,7 +59,7 @@ public class CourseService {
     }
 
     if (responseDtos.isEmpty()) {
-      throw new ResourceNotFoundException("There are no registered courses");
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, "There are no registered courses");
     } else {
       return responseDtos;
     }
@@ -70,21 +69,22 @@ public class CourseService {
     if (repository.existsById(course.getCode())) {
       return new CourseResponseDto(repository.save(course));
     } else {
-      throw new ResourceNotFoundException("Course code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course code not found");
     }
   }
 
   public CourseResponseDto updateCourse(String code, Map<String, Object> fields) throws Exception {
     Optional<Course> opt = repository.findByCode(code);
     if (opt.isEmpty()) {
-      throw new ResourceNotFoundException("Course code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course code not found");
     }
     Course department = opt.get();
 
     fields.forEach((key, val) -> {
       Field field = ReflectionUtils.findField(Course.class, key);
       if (field == null) {
-        throw new IllegalArgumentException(String.format("Tried to update non existent field %s", key));
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            String.format("Tried to update non existent field %s", key));
       }
       field.setAccessible(true);
       ReflectionUtils.setField(field, department, val);
@@ -97,7 +97,7 @@ public class CourseService {
     if (repository.existsById(code)) {
       repository.deleteById(code);
     } else {
-      throw new ResourceNotFoundException("Course code not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course code not found");
     }
   }
 }
