@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.petcode.dto.DepartmentCreateDto;
-import com.petcode.entity.Department;
-import com.petcode.service.DepartmentService;
+import com.petcode.dto.CourseCreateDto;
+import com.petcode.entity.Course;
+import com.petcode.service.CourseService;
 
 @RestController
-@RequestMapping("${apiPrefix}/department")
-public class DepartmentController {
-  private final DepartmentService service;
+@RequestMapping("${apiPrefix}/course")
+public class CourseController {
+  private final CourseService service;
 
-  public DepartmentController(DepartmentService service) {
+  public CourseController(CourseService service) {
     this.service = service;
   }
 
   @PostMapping("/create")
-  public ResponseEntity<?> createDepartment(@RequestBody DepartmentCreateDto newDepartment) {
+  public ResponseEntity<?> createCourse(@RequestBody CourseCreateDto newCourse) {
     try {
-      return ResponseEntity.status(HttpStatus.CREATED).body(service.createDepartment(newDepartment));
+      return ResponseEntity.status(HttpStatus.CREATED).body(service.createCourse(newCourse));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
   }
 
   @GetMapping("/{code}")
-  public ResponseEntity<?> getDepartment(@PathVariable String code) {
+  public ResponseEntity<?> getCourse(@PathVariable String code) {
     try {
       return ResponseEntity.ok(service.findByCode(code));
     } catch (ResourceNotFoundException e) {
@@ -48,7 +48,7 @@ public class DepartmentController {
   }
 
   @GetMapping("/")
-  public ResponseEntity<?> getAllDepartments() {
+  public ResponseEntity<?> getAllCourses() {
     try {
       return ResponseEntity.ok(service.findAll());
     } catch (ResourceNotFoundException e) {
@@ -59,9 +59,9 @@ public class DepartmentController {
   }
 
   @PutMapping("/{code}")
-  public ResponseEntity<?> replaceDepartment(@PathVariable String code, @RequestBody Department department) {
+  public ResponseEntity<?> replaceCourse(@PathVariable String code, @RequestBody Course course) {
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(service.replaceDepartment(code, department));
+      return ResponseEntity.status(HttpStatus.OK).body(service.replaceCourse(code, course));
     } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     } catch (Exception e) {
@@ -70,9 +70,9 @@ public class DepartmentController {
   }
 
   @PatchMapping("/{code}")
-  public ResponseEntity<?> updateDepartment(@PathVariable String code, @RequestBody Map<String, Object> fields) {
+  public ResponseEntity<?> updateCourse(@PathVariable String code, @RequestBody Map<String, Object> fields) {
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(service.updateDepartment(code, fields));
+      return ResponseEntity.status(HttpStatus.OK).body(service.updateCourse(code, fields));
     } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     } catch (Exception e) {
@@ -81,7 +81,7 @@ public class DepartmentController {
   }
 
   @DeleteMapping("/{code}")
-  public ResponseEntity<?> deleteDepartment(@PathVariable String code) {
+  public ResponseEntity<?> deleteCourse(@PathVariable String code) {
     try {
       service.deleteByCode(code);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -91,6 +91,5 @@ public class DepartmentController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
   }
-
 
 }

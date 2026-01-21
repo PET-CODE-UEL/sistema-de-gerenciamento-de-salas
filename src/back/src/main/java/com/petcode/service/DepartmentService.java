@@ -1,16 +1,20 @@
 package com.petcode.service;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.petcode.controller.ResourceNotFoundException;
-import com.petcode.dto.DepartmentCreateDTO;
+import com.petcode.dto.DepartmentCreateDto;
+import com.petcode.dto.DepartmentResponseDto;
 import com.petcode.entity.Center;
 import com.petcode.entity.Department;
 import com.petcode.repository.CenterRepository;
@@ -27,43 +31,53 @@ public class DepartmentService {
     this.centerRepository = centerRepository;
   }
 
-  public Department createDepartment(DepartmentCreateDTO departmentDTO) throws Exception {
-    Center center = centerRepository.findByCode(departmentDTO.getCenterCode())
+  public DepartmentResponseDto createDepartment(DepartmentCreateDto departmentDto) throws Exception {
+    if (repository.existsById(departmentDto.getCode())) {
+      throw ResponseStatusException(HttpStatus.CONFLICT, "Department with this code already exists")
+    }
+    Center center = centerRepository.findByCode(departmentDto.getCenterCode())
         .orElseThrow(() -> new IllegalArgumentException(
-            String.format("There is no Center with code %s", departmentDTO.getCenterCode())));
+            String.format("There is no Center with code %s", departmentDto.getCenterCode())));
 
-    Department d = new Department(departmentDTO.getCode(), departmentDTO.getName(), center);
+    Department d = new Department(departmentDto.getCode(), departmentDto.getName(), center);
 
-    return repository.save(d);
+    return new DepartmentResponseDto(repository.save(d));
   }
 
-  public Department findByCode(String code) throws Exception {
+  public DepartmentResponseDto findByCode(String code) throws Exception {
     Optional<Department> department = repository.findByCode(code);
     if (department.isEmpty()) {
       throw new Exception("Department code not found");
     } else {
-      return department.get();
+      return new DepartmentResponseDto(department.get());
     }
   }
 
-  public List<Department> findAll() throws ResourceNotFoundException {
+  public List<DepartmentResponseDto> findAll() throws ResourceNotFoundException {
     List<Department> departments = repository.findAll();
+
+    List<DepartmentResponseDto> responseDtos = new ArrayList<DepartmentResponseDto>();
+    
+    for (Department d : departments) {
+      responseDtos.add(new DepartmentResponseDto(d));
+    }
+
     if (departments.isEmpty()) {
       throw new ResourceNotFoundException("There are no registered departments");
     } else {
-      return departments;
+      return responseDtos;
     }
   }
 
-  public Department replaceDepartment(String code, Department department) throws Exception {
+  public DepartmentResponseDto replaceDepartment(String code, Department department) throws Exception {
     if (repository.existsById(department.getCode())) {
-      return repository.save(department);
+      return new DepartmentResponseDto(repository.save(department));
     } else {
       throw new ResourceNotFoundException("Department code not found");
     }
   }
 
-  public Department updateDepartment(String code, Map<String, Object> fields) throws Exception {
+  public DepartmentResponseDto updateDepartment(String code, Map<String, Object> fields) throws Exception {
     Optional<Department> opt = repository.findByCode(code);
     if (opt.isEmpty()) {
       throw new ResourceNotFoundException("Department code not found");
@@ -79,7 +93,7 @@ public class DepartmentService {
       ReflectionUtils.setField(field, department, val);
     });
 
-    return repository.save(department);
+    return new DepartmentResponseDto(repository.save(department));
   }
 
   public void deleteByCode(String code) throws Exception {

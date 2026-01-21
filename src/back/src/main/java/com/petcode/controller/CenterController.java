@@ -90,4 +90,15 @@ public class CenterController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
   }
+
+  @GetMapping("/{code}/departments")
+  public ResponseEntity<?> getDepartments(@PathVariable String code) {
+    try {
+      return ResponseEntity.ok(service.listDepartments(code));
+    } catch (ResourceNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+  }
 }

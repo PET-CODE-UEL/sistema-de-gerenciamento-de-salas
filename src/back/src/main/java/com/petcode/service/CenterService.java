@@ -11,16 +11,20 @@ import org.springframework.util.ReflectionUtils;
 
 import com.petcode.controller.ResourceNotFoundException;
 import com.petcode.entity.Center;
+import com.petcode.entity.Department;
 import com.petcode.repository.CenterRepository;
+import com.petcode.repository.DepartmentRepository;
 
 @Service
 public class CenterService {
 
   private CenterRepository repository;
+  private DepartmentRepository departmentRepository;
 
   @Autowired
-  public CenterService(CenterRepository repository) {
+  public CenterService(CenterRepository repository, DepartmentRepository departmentRepository) {
     this.repository = repository;
+    this.departmentRepository = departmentRepository;
   }
 
   public Center createCenter(Center newCenter) {
@@ -77,6 +81,19 @@ public class CenterService {
       repository.deleteById(code);
     } else {
       throw new ResourceNotFoundException("Center code not found");
+    }
+  }
+
+  public List<Department> listDepartments(String code) throws Exception {
+    repository.findByCode(code)
+        .orElseThrow(() -> new ResourceNotFoundException(String.format("There is no center with code: %s", code)));
+
+    List<Department> departments = departmentRepository.findByCenterCode(code);
+
+    if (departments.isEmpty()) {
+      throw new ResourceNotFoundException("There are no departments registered in this center");
+    } else {
+      return departments;
     }
   }
 }

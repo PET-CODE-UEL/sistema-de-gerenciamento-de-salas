@@ -15,4 +15,6 @@ public interface DepartmentRepository extends ListCrudRepository<Department, Str
 
   Object deleteByCode(String code);
 
+  List<Department> findByCenterCode(String centerCode);
+
 }

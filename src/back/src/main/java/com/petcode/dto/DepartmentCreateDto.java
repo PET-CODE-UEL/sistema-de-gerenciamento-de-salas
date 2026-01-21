@@ -1,6 +1,6 @@
 package com.petcode.dto;
 
-public class DepartmentCreateDTO {
+public class DepartmentCreateDto {
   private String centerCode;
   private String code;
   private String name;
