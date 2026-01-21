@@ -1,4 +1,4 @@
-package com.petcode.service;
+package com.petcode.center;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import com.petcode.controller.ResourceNotFoundException;
-import com.petcode.entity.Center;
-import com.petcode.entity.Department;
-import com.petcode.repository.CenterRepository;
-import com.petcode.repository.DepartmentRepository;
+import com.petcode.department.Department;
+import com.petcode.department.DepartmentRepository;
 
 @Service
 public class CenterService {

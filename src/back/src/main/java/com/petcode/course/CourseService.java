@@ -1,4 +1,4 @@
-package com.petcode.service;
+package com.petcode.course;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -13,12 +13,8 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.petcode.controller.ResourceNotFoundException;
-import com.petcode.dto.CourseCreateDto;
-import com.petcode.dto.CourseResponseDto;
-import com.petcode.entity.Department;
-import com.petcode.entity.Course;
-import com.petcode.repository.DepartmentRepository;
-import com.petcode.repository.CourseRepository;
+import com.petcode.department.Department;
+import com.petcode.department.DepartmentRepository;
 
 @Service
 public class CourseService {

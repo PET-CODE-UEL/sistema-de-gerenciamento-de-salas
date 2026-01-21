@@ -1,4 +1,4 @@
-package com.petcode.dto;
+package com.petcode.course;
 
 public class CourseCreateDto {
   private String code;

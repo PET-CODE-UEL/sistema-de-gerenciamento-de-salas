@@ -1,6 +1,6 @@
-package com.petcode.dto;
+package com.petcode.department;
 
-import com.petcode.entity.Department;
+import com.petcode.department.Department;
 
 public class DepartmentResponseDto {
   private String code;

@@ -1,11 +1,9 @@
-package com.petcode.repository;
+package com.petcode.department;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.ListCrudRepository;
-
-import com.petcode.entity.Department;
 
 public interface DepartmentRepository extends ListCrudRepository<Department, String> {
 

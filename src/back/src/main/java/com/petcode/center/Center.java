@@ -1,15 +1,13 @@
-package com.petcode.entity;
+package com.petcode.center;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "departments")
-public class Department {
+@Table(name = "centers")
+public class Center {
 
   @Id
   @Column(name = "code")
@@ -18,22 +16,16 @@ public class Department {
   @Column(name = "name", nullable = false, length = 100)
   private String name;
 
-  @ManyToOne
-  @JoinColumn(name = "center_id", nullable = false)
-  private Center center;
+  protected Center() {}
 
-  protected Department() {
-  }
-
-  public Department(String code, String name, Center center) {
+  public Center(String code, String name) {
     this.code = code;
     this.name = name;
-    this.center = center;
   }
 
   @Override
   public String toString() {
-    return String.format("Department[%s : %s]", this.code, this.name);
+    return String.format("Center[%s : %s]", this.code, this.name);
   }
 
   public String getCode() {
@@ -50,14 +42,6 @@ public class Department {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public Center getCenter() {
-    return center;
-  }
-
-  public void setCenter(Center center) {
-    this.center = center;
   }
 
 }

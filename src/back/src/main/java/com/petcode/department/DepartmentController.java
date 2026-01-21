@@ -1,4 +1,4 @@
-package com.petcode.controller;
+package com.petcode.department;
 
 import java.util.Map;
 
@@ -14,40 +14,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.petcode.entity.Center;
-import com.petcode.service.CenterService;
+import com.petcode.controller.ResourceNotFoundException;
 
 @RestController
-@RequestMapping("${apiPrefix}/center")
-public class CenterController {
-  private final CenterService service;
+@RequestMapping("${apiPrefix}/department")
+public class DepartmentController {
+  private final DepartmentService service;
 
-  public CenterController(CenterService service) {
+  public DepartmentController(DepartmentService service) {
     this.service = service;
   }
 
   @PostMapping("/create")
-  public ResponseEntity<?> createCenter(@RequestBody Center newCenter) {
+  public ResponseEntity<?> createDepartment(@RequestBody DepartmentCreateDto newDepartment) {
     try {
-      return ResponseEntity.status(HttpStatus.CREATED).body(service.createCenter(newCenter));
+      return ResponseEntity.status(HttpStatus.CREATED).body(service.createDepartment(newDepartment));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
   }
 
   @GetMapping("/{code}")
-  public ResponseEntity<?> getCenter(@PathVariable String code) {
+  public ResponseEntity<?> getDepartment(@PathVariable String code) {
     try {
       return ResponseEntity.ok(service.findByCode(code));
     } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
   }
 
   @GetMapping("/")
-  public ResponseEntity<?> getAllCenters() {
+  public ResponseEntity<?> getAllDepartments() {
     try {
       return ResponseEntity.ok(service.findAll());
     } catch (ResourceNotFoundException e) {
@@ -58,9 +57,9 @@ public class CenterController {
   }
 
   @PutMapping("/{code}")
-  public ResponseEntity<?> replaceCenter(@PathVariable String code, @RequestBody Center center) {
+  public ResponseEntity<?> replaceDepartment(@PathVariable String code, @RequestBody Department department) {
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(service.replaceCenter(code, center));
+      return ResponseEntity.status(HttpStatus.OK).body(service.replaceDepartment(code, department));
     } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     } catch (Exception e) {
@@ -69,9 +68,9 @@ public class CenterController {
   }
 
   @PatchMapping("/{code}")
-  public ResponseEntity<?> updateCenter(@PathVariable String code, @RequestBody Map<String, Object> fields) {
+  public ResponseEntity<?> updateDepartment(@PathVariable String code, @RequestBody Map<String, Object> fields) {
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(service.updateCenter(code, fields));
+      return ResponseEntity.status(HttpStatus.OK).body(service.updateDepartment(code, fields));
     } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     } catch (Exception e) {
@@ -80,7 +79,7 @@ public class CenterController {
   }
 
   @DeleteMapping("/{code}")
-  public ResponseEntity<?> deleteCenter(@PathVariable String code) {
+  public ResponseEntity<?> deleteDepartment(@PathVariable String code) {
     try {
       service.deleteByCode(code);
       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -91,14 +90,5 @@ public class CenterController {
     }
   }
 
-  @GetMapping("/{code}/departments")
-  public ResponseEntity<?> getDepartments(@PathVariable String code) {
-    try {
-      return ResponseEntity.ok(service.listDepartments(code));
-    } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-    }
-  }
+
 }

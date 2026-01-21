@@ -1,4 +1,4 @@
-package com.petcode.service;
+package com.petcode.department;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -12,13 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.petcode.center.Center;
+import com.petcode.center.CenterRepository;
 import com.petcode.controller.ResourceNotFoundException;
-import com.petcode.dto.DepartmentCreateDto;
-import com.petcode.dto.DepartmentResponseDto;
-import com.petcode.entity.Center;
-import com.petcode.entity.Department;
-import com.petcode.repository.CenterRepository;
-import com.petcode.repository.DepartmentRepository;
 
 @Service
 public class DepartmentService {
@@ -33,7 +29,7 @@ public class DepartmentService {
 
   public DepartmentResponseDto createDepartment(DepartmentCreateDto departmentDto) throws Exception {
     if (repository.existsById(departmentDto.getCode())) {
-      throw ResponseStatusException(HttpStatus.CONFLICT, "Department with this code already exists")
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "Department with this code already exists");
     }
     Center center = centerRepository.findByCode(departmentDto.getCenterCode())
         .orElseThrow(() -> new IllegalArgumentException(
@@ -57,7 +53,7 @@ public class DepartmentService {
     List<Department> departments = repository.findAll();
 
     List<DepartmentResponseDto> responseDtos = new ArrayList<DepartmentResponseDto>();
-    
+
     for (Department d : departments) {
       responseDtos.add(new DepartmentResponseDto(d));
     }

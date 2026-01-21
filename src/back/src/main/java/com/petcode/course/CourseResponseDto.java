@@ -1,6 +1,4 @@
-package com.petcode.dto;
-
-import com.petcode.entity.Course;
+package com.petcode.course;
 
 public class CourseResponseDto {
   private String code;
