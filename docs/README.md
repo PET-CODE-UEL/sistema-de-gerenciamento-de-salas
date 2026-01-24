@@ -5,8 +5,8 @@ A monorepo containing the full source code, documentation an instructions regard
 
 ## TODO / Roadmap
 
-- [ ] Set up front and back-end dev environments
-- [ ] Set up containerization
+- [x] Set up front and back-end dev environments
+- [x] Set up containerization
 - [ ] Add CI/CD pipeline
 - [ ] Document architectural decisions
 - [ ] Finish this README properly
